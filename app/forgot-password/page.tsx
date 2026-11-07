@@ -1,0 +1,4 @@
+"use client";
+import { useState } from "react";
+import { browserSupabase } from "@/lib/supabase";
+export default function Forgot(){const [email,setEmail]=useState("");const [msg,setMsg]=useState("");async function send(e:React.FormEvent){e.preventDefault();const {error}=await browserSupabase().auth.resetPasswordForEmail(email,{redirectTo:`${location.origin}/reset-password`});setMsg(error?error.message:"If the account exists, a secure password-reset link has been sent.");}return <main className="page"><h1>Reset your password</h1><form className="formCard" onSubmit={send}><div className="field"><label>Email address</label><input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></div><button className="button">Send reset link</button>{msg&&<p className="muted">{msg}</p>}</form></main>}
