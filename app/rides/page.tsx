@@ -1,0 +1,3 @@
+import { serverSupabase } from "@/lib/supabase";
+import { redirect } from "next/navigation";
+export default async function Rides(){const sb=await serverSupabase();const {data:{user}}=await sb.auth.getUser();if(!user)redirect("/login");const {data}=await sb.from("rides").select("id,pickup_address,destination_address,status,created_at").or(`passenger_id.eq.${user.id},driver_id.eq.${user.id}`).order("created_at",{ascending:false}).limit(50);return <main className="page"><h1>Your rides</h1>{!data?.length?<p className="muted">No rides yet.</p>:data.map(r=><article className="panel" key={r.id}><b>{r.pickup_address} → {r.destination_address}</b><p className="muted">{r.status} · {new Date(r.created_at).toLocaleString("en-ZA")}</p></article>)}</main>}
