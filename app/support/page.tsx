@@ -1,0 +1,1 @@
+export default function Support(){return <main className="page"><p className="eyebrow">HELP CENTRE</p><h1>How can we help?</h1><p className="muted">For assistance with bookings, driver registration or payments, contact the Rabalata Rides support team. Add your verified support email and WhatsApp contact before launch.</p></main>}
